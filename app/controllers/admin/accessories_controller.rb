@@ -12,7 +12,7 @@ class Admin::AccessoriesController < Admin::BaseController
     if params[:q].blank?
       @available_accessories = []
     else
-      @available_accessories = Product.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
+      @available_accessories = Product.find(:all,:include=>:variants, :conditions => ['lower(name) LIKE ? OR lower(variants.sku) LIKE ?', "%#{params[:q].downcase}%", "%#{params[:q].downcase}%"])
     end
     @available_accessories.delete_if { |accessory| @product.accessories.include?(accessory) }
     respond_to do |format|

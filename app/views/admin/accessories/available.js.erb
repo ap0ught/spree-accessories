@@ -9,6 +9,7 @@
 <table class="basic-table">
 	<thead>
 		<tr>
+                        <th><%= t("sku") %></th>
 			<th><%= t("name") %></th>
 			<th><%= t("action") %></th>
 		</tr>
@@ -16,6 +17,7 @@
 	<tbody>
     <% @available_accessories.each do |accessory| %>
       <tr id="<%= dom_id(accessory) %>">
+        <td valign="top"><%= accessory.variant.sku %></td>
         <td valign="top"><%= accessory.name %></td>
 		    <td valign="top">
 		      <%= link_to_remote t('select'), 
