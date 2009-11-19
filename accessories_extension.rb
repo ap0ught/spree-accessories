@@ -10,9 +10,16 @@ class AccessoriesExtension < Spree::Extension
     # admin.tabs.add "Spree Accessories", "/admin/spree_accessories", :after => "Layouts", :visibility => [:all]
     
     Product.class_eval do
-      has_and_belongs_to_many :accessories, :class_name => "Product", :join_table => "accessories" , :association_foreign_key => "accessory_product_id"
+      has_many :kits, :source=> :product, :through => :accessories, :select=> "DISTINCT product_id,products.*"
+#      has_many :spare_parts, :class_name=>"Product"
+      has_many_polymorphs :linkables, :from => [:product_wrappers,:taxons], :through => :accessories, :rename_individual_collections=>true
     end
     
+#    Taxon.class_eval do
+#      #has_many_polymorphs :linkables, :from => [:spare_parts], :through => :accessories
+#    end
+
+
     # register Accessories product tab
     Admin::BaseController.class_eval do
       before_filter :add_accessories_tab

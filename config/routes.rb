@@ -6,6 +6,6 @@
 
 map.namespace :admin do |admin|
    admin.resources :products do |product|
-     product.resources :accessories, :member => {:select => :post, :remove => :post}, :collection => {:available => :post, :selected => :get}
+     product.resources :accessories,  :collection => {:remove => :post,:available => :post, :selected => :get,:select => :post}
    end
 end  

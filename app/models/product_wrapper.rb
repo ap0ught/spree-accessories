@@ -1,0 +1,3 @@
+class ProductWrapper < Product
+
+end

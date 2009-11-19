@@ -2,23 +2,35 @@
 
 <%= render :partial => 'admin/shared/product_tabs', :locals => {:current => t("accessories") } %>
 <div id="selected-accessories">
-  <%= render :partial => "accessories_table", :locals => {:accessories => @accessories} %>
+  <%= render :partial => "accessories_table" %>
 </div>
+
 <table>
   <tr>
-    <td><b><%= t('search') %>:</b></td>
-    <td><input id="searchtext" size="25"></td>
+    <td><b>Ajouter une catégorie :</b></td>
+    <td><input id="searchtext_taxon" size="25"></td>
+  </tr>
+  <tr>
+    <td><b>Ajouter un produit :</b></td>
+    <td><input id="searchtext_product" size="25"></td>
   </tr>
 </table>
 <div id="searching" style="display:none">
   <%= t('searching') %> &nbsp; <%= image_tag "spinner.gif" %>  
 </div>
-<%= observe_field(:searchtext,
+<%= observe_field(:searchtext_product,
                   :frequency => 0.75,
                   :update => :search_hits,
                   :loading => "Element.show('searching')",
                   :complete => "Element.hide('searching')",
-                  :url => available_admin_product_accessories_url(@product),
-                  :with => "'q=' + value") %>  
+                  :url => available_admin_product_accessories_url(@product,:type=>"product"),
+                  :with => "'q=' + value") %>
+<%= observe_field(:searchtext_taxon,
+                  :frequency => 0.75,
+                  :update => :search_hits,
+                  :loading => "Element.show('searching')",
+                  :complete => "Element.hide('searching')",
+                  :url => available_admin_product_accessories_url(@product,:type=>"taxon"),
+                  :with => "'q=' + value") %> 
 <br/>                 
 <div id="search_hits"></div>

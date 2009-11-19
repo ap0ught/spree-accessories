@@ -17,14 +17,17 @@
 	<tbody>
     <% @available_accessories.each do |accessory| %>
       <tr id="<%= dom_id(accessory) %>">
-        <td valign="top"><%= accessory.variant.sku %></td>
-        <td valign="top"><%= accessory.name %></td>
-		    <td valign="top">
+        <td valign="top"><%= accessory.variant.sku if accessory.is_a? Product  %></td>
+        <td valign="top">
+          <%= accessory.is_a?(Product) ? accessory.name : "#{accessory.ancestors.reverse.collect{ |ancestor| ancestor.name }.join( " >> ")} #{accessory.name}" %>
+        </td>
+		    <td valign="top">a
 		      <%= link_to_remote t('select'), 
-		                         :url => select_admin_product_accessory_path(@product, accessory),
+		                         :url => select_admin_product_accessories_path(@product),
 		                         :loading => "Element.show(#{dom_id(accessory, :spinner)})",
 		                         :update => 'selected-accessories',
-		                         :complete => "$('#{dom_id(accessory)}').remove(); Element.hide(#{dom_id(accessory, :spinner)});" %>
+		                         :complete => "$('#{dom_id(accessory)}').remove(); Element.hide(#{dom_id(accessory, :spinner)});",
+                                         :with => accessory.is_a?(Product) ? "'accessory_id=#{accessory.id}'" : "'taxon_id=#{accessory.id}'"  %>
           <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(accessory, :spinner)}" %>		    
 		    </td>        
       </tr>
