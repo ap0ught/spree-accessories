@@ -1,0 +1,3 @@
+<% cache("#spare-parts-#{@product.id}") do %>
+  <%= render :partial=>"/shared/spare_parts",:locals=>{:spare_collection=>@product.osps,:spare_title=>"PIECE(S) DETACHEE(S) OPTIONELLE(S)"} %>
+<% end %>

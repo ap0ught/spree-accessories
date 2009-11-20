@@ -1,7 +1,6 @@
-class Admin::AccessoriesController < Admin::BaseController
+class Admin::SparePartsController < Admin::BaseController
   resource_controller
-  before_filter :load_object, :only => [:selected, :available, :remove]
-  
+  before_filter :load_object, :only => [:selected,:available,:selected,:remove]
   belongs_to :product
 
   def selected
@@ -32,8 +31,7 @@ class Admin::AccessoriesController < Admin::BaseController
     else
       spare_part = Taxon.find_by_id(params[:taxon_id])
     end
-    @product.linkables.delete(spare_part)
-
+    @product.sps.delete(spare_part)
     render :layout => false
   end  
   
@@ -45,8 +43,8 @@ class Admin::AccessoriesController < Admin::BaseController
       spare_part = Taxon.find_by_id(params[:taxon_id])
     end
     if spare_part
-      @product.linkables << spare_part
+      @product.sps << spare_part
     end
-    render :layout => false
+    render :layout=>false
   end
 end

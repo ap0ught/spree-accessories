@@ -1,0 +1,15 @@
+<h1>Kits</h1>
+<% if @product.kits.size >0 %>
+  <table class="index">
+    <thead><tr><th><%= t("product") %></th></th></tr></thead>
+    <tbody>
+      <% @product.kits.each do |accessory| %>
+        <tr id="<%= dom_id(accessory, :sel)%>">
+          <td valign="top"><%= accessory.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= t('none') %>
+<% end %>

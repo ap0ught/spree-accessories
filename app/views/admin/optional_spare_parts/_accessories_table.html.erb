@@ -1,0 +1,9 @@
+<%= render :partial=>"/admin/shared/kits_table" %>
+
+<h1>Optionel Spare parts</h1>
+
+<%= render :partial=>"/admin/shared/spare_parts_table",
+  :locals=>{
+  :spare_collection=>@product.osps,
+  :url_spare_update=>remove_admin_product_optional_spare_parts_url(@product)
+} %>

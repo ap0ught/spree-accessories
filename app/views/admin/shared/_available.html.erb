@@ -5,6 +5,8 @@
     else row.style.display = '';
   }
 </script>
+
+AAAAAAAAAAAA
 <h4><%= t('available_accessories') %></h4>
 <table class="index">
 	<thead>
@@ -21,15 +23,15 @@
         <td valign="top">
           <%= accessory.is_a?(Product) ? accessory.name : "#{accessory.ancestors.reverse.collect{ |ancestor| ancestor.name }.join( " >> ")} #{accessory.name}" %>
         </td>
-		    <td valign="top">a
-		      <%= link_to_remote t('select'), 
-		                         :url => select_admin_product_accessories_path(@product),
-		                         :loading => "Element.show(#{dom_id(accessory, :spinner)})",
-		                         :update => 'selected-accessories',
-		                         :complete => "$('#{dom_id(accessory)}').remove(); Element.hide(#{dom_id(accessory, :spinner)});",
-                                         :with => accessory.is_a?(Product) ? "'accessory_id=#{accessory.id}'" : "'taxon_id=#{accessory.id}'"  %>
-          <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(accessory, :spinner)}" %>		    
-		    </td>        
+        <td valign="top">
+          <%= link_to_remote t('select'),
+                             :url => select_url,
+                             :loading => "Element.show(#{dom_id(accessory, :spinner)})",
+                             :update => 'selected-accessories',
+                             :complete => "$('#{dom_id(accessory)}').remove(); Element.hide(#{dom_id(accessory, :spinner)});",
+                             :with => accessory.is_a?(Product) ? "'accessory_id=#{accessory.id}'" : "'taxon_id=#{accessory.id}'"  %>
+          <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(accessory, :spinner)}" %>
+        </td>
       </tr>
     <% end %>
     <% if @available_accessories.empty? %>

@@ -1,33 +1,16 @@
-<h1>Kits</h1>
-
-<% if @product.kits.size >0 %>
-  <table class="index">
-    <thead><tr><th><%= t("product") %></th></th></tr></thead>
-    <tbody>
-      <% @product.kits.each do |accessory| %>
-        <tr id="<%= dom_id(accessory, :sel)%>">
-          <td valign="top"><%= accessory.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <%= t('none') %>
-<% end %>
-
-<h1>Spare parts</h1>
-
-<% if @product.linkables.size >0 %>
+<% if spare_collection.size >0 %>
   <table class="index">
     <thead><tr><th><%= t("type") %></th><th><%= t("name") %></th><th><%= t("action") %></th></tr></thead>
     <tbody>
-      <% @product.linkables.each do |spare_parts| %>
+      <% spare_collection.each do |spare_parts| %>
         <tr id="<%= dom_id(spare_parts, :sel)%>">
           <td valign="top"><%= spare_parts.class.to_s %></td>
-          <td valign="top"><%= spare_parts.name %></td>
+          <td valign="top">
+            <%= spare_parts.is_a?(Product) ? spare_parts.name : "#{spare_parts.ancestors.reverse.collect{ |ancestor| ancestor.name }.join( " >> ")} #{spare_parts.name}" %>
+          </td>
           <td valign="top">
           <%= link_to_remote t('remove'),
-                             :url => remove_admin_product_accessories_url(@product),
+                             :url => url_spare_update,
                              :loading => "Element.show(#{dom_id(spare_parts, :rem_spinner)})",
                              :update => 'selected-accessories',
                              :complete => "$('#{dom_id(spare_parts, :sel)}').remove(); Element.hide(#{dom_id(spare_parts, :rem_spinner)});",

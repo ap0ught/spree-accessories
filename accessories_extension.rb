@@ -10,9 +10,9 @@ class AccessoriesExtension < Spree::Extension
     # admin.tabs.add "Spree Accessories", "/admin/spree_accessories", :after => "Layouts", :visibility => [:all]
     
     Product.class_eval do
-      has_many :kits, :source=> :product, :through => :accessories, :select=> "DISTINCT product_id,products.*"
-#      has_many :spare_parts, :class_name=>"Product"
-      has_many_polymorphs :linkables, :from => [:product_wrappers,:taxons], :through => :accessories, :rename_individual_collections=>true
+      has_many :kits, :source=> :product, :through => :spare_parts, :select=> "DISTINCT product_id,products.*"
+      has_many_polymorphs :sps, :from => [:product_wrappers,:taxons], :through => :spare_parts, :rename_individual_collections=>true
+      has_many_polymorphs :osps, :from => [:product_wrappers,:taxons], :through => :optional_spare_parts, :rename_individual_collections=>true
     end
     
 #    Taxon.class_eval do
@@ -26,7 +26,8 @@ class AccessoriesExtension < Spree::Extension
       
       private
       def add_accessories_tab
-        @product_admin_tabs << {:name => t('accessories'), :url => "selected_admin_product_accessories_url"}
+        @product_admin_tabs << {:name => "Pieces détachés", :url => "selected_admin_product_spare_parts_url"}
+        @product_admin_tabs << {:name => "Pieces détachés Optionelles", :url => "selected_admin_product_optional_spare_parts_url"}
       end
     end
  

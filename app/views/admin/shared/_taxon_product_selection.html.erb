@@ -1,10 +1,3 @@
-<%= render :partial => 'admin/shared/product_sub_menu' %>
-
-<%= render :partial => 'admin/shared/product_tabs', :locals => {:current => t("accessories") } %>
-<div id="selected-accessories">
-  <%= render :partial => "accessories_table" %>
-</div>
-
 <table>
   <tr>
     <td><b>Ajouter une catégorie :</b></td>
@@ -16,21 +9,21 @@
   </tr>
 </table>
 <div id="searching" style="display:none">
-  <%= t('searching') %> &nbsp; <%= image_tag "spinner.gif" %>  
+  <%= t('searching') %> &nbsp; <%= image_tag "spinner.gif" %>
 </div>
 <%= observe_field(:searchtext_product,
                   :frequency => 0.75,
                   :update => :search_hits,
                   :loading => "Element.show('searching')",
                   :complete => "Element.hide('searching')",
-                  :url => available_admin_product_accessories_url(@product,:type=>"product"),
+                  :url => available_admin_product_spare_parts_url(@product,:type=>"product"),
                   :with => "'q=' + value") %>
 <%= observe_field(:searchtext_taxon,
                   :frequency => 0.75,
                   :update => :search_hits,
                   :loading => "Element.show('searching')",
                   :complete => "Element.hide('searching')",
-                  :url => available_admin_product_accessories_url(@product,:type=>"taxon"),
-                  :with => "'q=' + value") %> 
-<br/>                 
+                  :url => available_admin_product_spare_parts_url(@product,:type=>"taxon"),
+                  :with => "'q=' + value") %>
+<br/>
 <div id="search_hits"></div>

@@ -1,0 +1,7 @@
+<% if spare_collection.size>0 %>
+  <% products= spare_collection.find_all{|p| p.is_a?(Product)} + spare_collection.find_all{|p| p.is_a?(Taxon)}.map(&:products)  %>
+  <div class="taxon">
+    <h2 class="product"><%= link_to "<div class='top'></div>#{tooltip("HAUT DE PAGE")} #{spare_title}", "#", :class => 'breadcrumbs' %>  <div class="alpha"></div></h2>
+        <%= render :partial => "/shared/products.html.erb", :locals => {:products => products.flatten.uniq.sort_by{|i| i.name},:taxon=>nil } %>
+  </div>
+<% end %>
