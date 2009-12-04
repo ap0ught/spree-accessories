@@ -12,7 +12,7 @@ class Admin::OptionalSparePartsController < Admin::BaseController
       @available_accessories = []
     else
       if params[:type]=="product"
-        @available_accessories = Product.find(:all,:include=>:variants, :conditions => ['lower(name) LIKE ? OR lower(variants.sku) LIKE ?', "%#{params[:q].downcase}%", "%#{params[:q].downcase}%"])
+        @available_accessories = Product.find(:all,:include=>[:variants,:globalize_translations], :conditions => ['lower(name) LIKE ? OR lower(variants.sku) LIKE ?', "%#{params[:q].downcase}%", "%#{params[:q].downcase}%"])
         #@available_accessories.delete_if { |accessory| @product.accessories.include?(accessory) }
       else
         @available_accessories = Taxon.find(:all,:conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
