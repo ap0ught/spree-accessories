@@ -1,0 +1,8 @@
+<%= render :partial => 'admin/shared/product_sub_menu' %>
+
+<%= render :partial => 'admin/shared/product_tabs', :locals => {:current => t("accessories") } %>
+<div id="selected-accessories">
+  <%= render :partial => "accessories_table" %>
+</div>
+
+<%#= render :partial=>"/admin/shared/taxon_product_selection" %>

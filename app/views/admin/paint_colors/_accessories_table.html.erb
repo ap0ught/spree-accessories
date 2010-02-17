@@ -1,0 +1,24 @@
+<h1>Liste des couleurs</h1>
+
+<table class="index">
+  <thead><tr><th>Référence</th><th><%= t("product") %></th><th></th></tr></thead>
+  <tbody>
+    <% @product.paint_colors.each do |accessory| %>
+      <tr id="<%= dom_id(accessory, :sel)%>">
+        <td valign="top"><%= accessory.color_product.sku %></td>
+        <td valign="top"><%= accessory.color_product.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <tr>
+    <td><b>Ajouter une couleur :</b></td>
+    <td>
+    <% form_for([:admin,@product,PaintColor.new()]) do |f| %>
+      <input id="color" size="25" name="color"/></td>
+    <% end %>
+  </tr>
+</table>
+
