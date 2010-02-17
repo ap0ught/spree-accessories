@@ -23,6 +23,10 @@ class Admin::PaintColorsController < Admin::BaseController
     redirect_to selected_admin_product_paint_colors_url(@product)
   end
 
+  def destroy
+    render :text=>"ok"
+  end
+
   private
     def insert_color(type,color)
       if color.to_i<100

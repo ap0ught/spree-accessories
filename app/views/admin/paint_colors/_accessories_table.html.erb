@@ -4,9 +4,10 @@
   <thead><tr><th>Référence</th><th><%= t("product") %></th><th></th></tr></thead>
   <tbody>
     <% @product.paint_colors.each do |accessory| %>
-      <tr id="<%= dom_id(accessory, :sel)%>">
+      <tr id="<%= dom_id(accessory)%>">
         <td valign="top"><%= accessory.color_product.sku %></td>
         <td valign="top"><%= accessory.color_product.name %></td>
+        <td valign="top"><%= link_to_delete accessory %></td>
       </tr>
     <% end %>
   </tbody>
