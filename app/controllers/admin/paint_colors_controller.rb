@@ -22,10 +22,11 @@ class Admin::PaintColorsController < Admin::BaseController
     end
     redirect_to selected_admin_product_paint_colors_url(@product)
   end
-
-  def destroy
-    render :text=>"ok"
-  end
+#
+#  def destroy
+#    render :text=>"ok"
+#  end
+  destroy.wants.js { render :text=>"ok"}
 
   private
     def insert_color(type,color)
@@ -37,7 +38,7 @@ class Admin::PaintColorsController < Admin::BaseController
       v=Variant.find_by_sku("revel-#{ref}")
       if v and v.product
         pc=PaintColor.find(:first,:conditions=>["product_id=? and color_id=?",@product.id,v.product.id])
-        PaintColor.create(:product=>@product,:color_product=>v.product) unless pc
+        PaintColor.create(:product=>@product,:color_product=>v.product,:paint_color_type_id=>type.id) unless pc
         return true
       else
         return false

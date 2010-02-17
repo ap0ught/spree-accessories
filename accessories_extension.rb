@@ -14,6 +14,7 @@ class AccessoriesExtension < Spree::Extension
       has_many :kits, :source=> :product, :through => :spare_parts, :select=> "DISTINCT product_id,products.*"
       has_many_polymorphs :sps, :from => [:product_wrappers,:taxons], :through => :spare_parts, :rename_individual_collections=>true
       has_many_polymorphs :osps, :from => [:product_wrappers,:taxons], :through => :optional_spare_parts, :rename_individual_collections=>true
+
     end
     
 #    Taxon.class_eval do
