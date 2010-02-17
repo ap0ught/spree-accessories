@@ -4,15 +4,13 @@
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
-      <li><a href="#" onclick="javascript:spree.general.add_to_cart(<%= "'/orders\','#{escape_javascript(@product.name)} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}'" %>);return false;" >
-          Acheter la maquette et ses peintures <%= type.title %></a></li>
+      <li><%= link_to("Acheter la maquette et ses peintures #{type.title}","#",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{@product.name} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}');return false;") %></li>
     <% end %>
   <% end %>
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
-      <li><a href="#" onclick="javascript:spree.general.add_to_cart(<%= "'/orders\','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}'" %>);return false;" >
-          Acheter seulement les peintures <%= type.title %> pour cette maquette</a></li>
+      <li><%= link_to(" Acheter seulement les peintures #{type.title} pour cette maquette","#",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}');return false;") %></li>
     <% end %>
   <% end %>
   </ul>
