@@ -14,13 +14,10 @@ class Admin::PaintColorsController < Admin::BaseController
 
       if params[:color].include?(",")
         params[:color].split(",").each do |color|
-          
+          insert_color(type,color)
         end
       else
-        if insert_color(type,params[:color])
-        else
-          flash[:error] = "Numéro #{params[:color]} introuvable"
-        end
+        insert_color(type,params[:color])
       end
     end
     redirect_to selected_admin_product_paint_colors_url(@product)
