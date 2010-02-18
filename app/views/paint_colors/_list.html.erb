@@ -1,19 +1,22 @@
 <% if @product.paint_colors.size>0 %>
   <p>Cette maquette est vendu sans peinture, les peintures nécessaires à cette maquette sont listés ci dessous : <br/>
-  <ul>
+    
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
-      <li><%= link_to("Acheter la maquette et ses peintures #{type.title}","#",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{@product.name} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}');return false;") %></li>
+      <div class="paint">
+        <%= link_to("<span class=\"fx-iconmodel fx-modelpaint\"></span><span class=\"content\">Acheter la maquette et ses peintures #{type.title}</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{@product.name} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
+      </div>
     <% end %>
   <% end %>
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
-      <li><%= link_to(" Acheter seulement les peintures #{type.title} pour cette maquette","#",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}');return false;") %></li>
+      <div class="paint">
+        <%= link_to("<span class=\"fx-iconmodel fx-paint\"></span><span class=\"content\">Acheter seulement les peintures #{type.title} pour cette maquette</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
+      </div>
     <% end %>
   <% end %>
-  </ul>
   </p>
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
