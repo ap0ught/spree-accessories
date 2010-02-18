@@ -35,7 +35,7 @@ class Admin::PaintColorsController < Admin::BaseController
       else
         ref=type.reference.gsub("XXX",color)
       end
-      v=Variant.find_by_sku("revel-#{ref}")
+      v=Variant.find_by_sku("revell-#{ref}")
       if v and v.product
         pc=PaintColor.find(:first,:conditions=>["product_id=? and color_id=?",@product.id,v.product.id])
         PaintColor.create(:product=>@product,:color_product=>v.product,:paint_color_type_id=>type.id) unless pc
