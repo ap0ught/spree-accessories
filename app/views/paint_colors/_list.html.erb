@@ -1,11 +1,11 @@
 <% if @product.paint_colors.size>0 %>
-  <p>Cette maquette est vendu sans peinture, les peintures nécessaires à cette maquette sont listés ci dessous : <br/>
-    
+  <p>Cette maquette est vendue sans peinture, les peintures nécessaires à cette maquette sont listées ci dessous : <br/>
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
       <div class="paint">
-        <%= link_to("<span class=\"fx-iconmodel fx-modelpaint\"></span><span class=\"content\">Acheter la maquette et ses peintures #{type.title}</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{@product.name} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
+        <% total = @product.final_price + products.map(&:final_price).sum  %>
+        <%= link_to("<span class=\"fx-iconmodel fx-modelpaint\"></span><span class=\"content\">Acheter la maquette et ses peintures #{type.title} = #{number_to_currency(total)}</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{@product.name} et ses #{type.description}','#{@product.variant.id},#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
       </div>
     <% end %>
   <% end %>
@@ -13,10 +13,12 @@
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
     <% if products.size  %>
       <div class="paint">
-        <%= link_to("<span class=\"fx-iconmodel fx-paint\"></span><span class=\"content\">Acheter seulement les peintures #{type.title} pour cette maquette</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
+        <% total = products.map(&:final_price).sum  %>
+        <%= link_to("<span class=\"fx-iconmodel fx-paint\"></span><span class=\"content\">Acheter seulement les peintures #{type.title} pour cette maquette = #{number_to_currency(total)}</span>","#",:class=>"ui-widget-content ui-state-default",:onclick=>"javascript:spree.general.add_to_cart('/orders','#{type.description} de la maquette #{escape_javascript(@product.name)}','#{products.map(&:variant).map(&:id).join(",")}');return false;") %>
       </div>
     <% end %>
   <% end %>
+  <i>Une seule des deux gammes de peinture est nécessaire</i>
   </p>
   <% PaintColorType.all.each do |type| %>
     <% products = @product.paint_colors.paint_type(type.id).map(&:color_product) %>
